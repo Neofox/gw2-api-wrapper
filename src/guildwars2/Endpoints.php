@@ -19,7 +19,12 @@ class Endpoints
     const ACCOUNT_BANK = '/account/bank';
     const ACCOUNT_DYES = '/account/dyes';
     const ACCOUNT_INVENTORY = '/account/inventory';
+    const ACCOUNT_MATERIALS = '/account/materials';
+    const ACCOUNT_MINIS = '/account/minis';
+    const ACCOUNT_SKINS = '/account/skins';
+    const ACCOUNT_WALLET = '/account/wallet';
 
     // Misc
     const QUAGGANS= '/quaggans';
+    const WORLDS = '/worlds';
 }
