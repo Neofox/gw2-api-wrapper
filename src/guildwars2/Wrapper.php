@@ -6,7 +6,7 @@
  * Time: 20:42
  */
 
-namespace guildwars2;
+namespace GuildWars2;
 
 /**
  * Class Wrapper

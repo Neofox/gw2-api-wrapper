@@ -1,6 +1,6 @@
 <?php
 
-use guildwars2\Endpoints;
+use GuildWars2\Endpoints;
 
 require 'vendor/autoload.php';
 

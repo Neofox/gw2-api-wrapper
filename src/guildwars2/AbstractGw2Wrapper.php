@@ -6,7 +6,7 @@
  * Time: 20:37
  */
 
-namespace guildwars2;
+namespace GuildWars2;
 
 
 use GuzzleHttp\Client;
