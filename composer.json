@@ -1,0 +1,22 @@
+{
+    "name": "neofox/neo-gw2api-wrapper",
+    "description": "Simple Guild Wars 2 API wrapper",
+    "license": "MIT",
+    "autoload": {
+      "psr-4": {
+        "": "src/"
+      }
+    },
+    "authors": [
+        {
+            "name": "Jerome Schaeffer",
+            "email": "jer.schaeffer@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev": {
+        "digitalnature/php-ref": "^1.2"
+    }
+}
