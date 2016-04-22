@@ -40,15 +40,17 @@ class Wrapper extends AbstractGw2Wrapper
      */
     public function getResponse($parameter = null)
     {
+        $result = '';
+
         $this->checkParameters($parameter);
         $response = $this->client->get($this->getVersion() . $this->endpoint . '/' . $parameter);
+        $result = $response->getBody()->getContents();
 
         if ($response->getStatusCode() != 200) {
-            throw new \Exception(sprintf('The api respond if a %s status. %s', $response->getStatusCode(),
-                $response->getReasonPhrase()));
+            $result = json_encode(['status' => $response->getStatusCode(), 'error' => json_decode($response->getBody())->text]);
         }
 
-        return \GuzzleHttp\json_decode($response->getBody()->getContents());
+        return \GuzzleHttp\json_decode($result);
     }
 
     /**

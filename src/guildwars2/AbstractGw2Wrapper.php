@@ -29,7 +29,7 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
      */
     public function __construct()
     {
-        $this->client = new Client(['base_uri' => $this->getApiBase()]);
+        $this->client = new Client(['base_uri' => $this->getApiBase(), 'http_errors' => false]);
     }
 
     /**
