@@ -19,17 +19,16 @@ class Wrapper extends AbstractGw2Wrapper
      */
     protected $endpoint;
 
+    protected $apiKey;
+
     /**
      * Wrapper constructor.
      *
-     * @param string $endpoint
      */
-    public function __construct($endpoint)
+    public function __construct()
     {
         parent::__construct();
-        $this->endpoint = $endpoint;
     }
-
 
     /**
      * @param null $parameter
@@ -40,10 +39,18 @@ class Wrapper extends AbstractGw2Wrapper
      */
     public function getResponse($parameter = null)
     {
-        $result = '';
+        if(empty($this->getEndpoint())){
+            throw new \Exception('An endpoint is required ');
+        }
 
         $this->checkParameters($parameter);
-        $response = $this->client->get($this->getVersion() . $this->endpoint . '/' . $parameter);
+        if(!empty($this->getApiKey())){
+            $response = $this->client->get($this->getVersion() . $this->endpoint . '/' . $parameter, [
+                'query' => [ 'access_token' => $this->getApiKey() ]
+            ]);
+        }else {
+            $response = $this->client->get($this->getVersion() . $this->endpoint . '/' . $parameter);
+        }
         $result = $response->getBody()->getContents();
 
         if ($response->getStatusCode() != 200) {
@@ -65,5 +72,43 @@ class Wrapper extends AbstractGw2Wrapper
         }
         //TODO: check if parameter is string if its an id or a list of ids
 
+    }
+
+    /**
+     * @return string
+     */
+    public function getEndpoint()
+    {
+        return $this->endpoint;
+    }
+
+    /**
+     * @param string $endpoint
+     *
+     * @return $this
+     */
+    public function setEndpoint($endpoint)
+    {
+        $this->endpoint = $endpoint;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @param mixed $apiKey
+     *
+     * @return $this
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+        return $this;
     }
 }
