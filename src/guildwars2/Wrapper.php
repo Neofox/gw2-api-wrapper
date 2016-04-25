@@ -37,7 +37,7 @@ class Wrapper extends AbstractGw2Wrapper
      * @throws \Exception
      * @throws \Gw2Exception
      */
-    public function getResponse($parameter = null, $queryOpt = [])
+    public function callApi($parameter = null, $queryOpt = [])
     {
         if(!empty($this->getApiKey())){
             $queryOpt = array_merge($queryOpt, ['access_token' => $this->getApiKey()]);
@@ -67,7 +67,7 @@ class Wrapper extends AbstractGw2Wrapper
      *
      * @throws \Gw2Exception
      */
-    public function checkParameters($parameter)
+    private function checkParameters($parameter)
     {
         if(empty($this->getEndpoint())){
             throw new \Gw2Exception('An endpoint is required ');

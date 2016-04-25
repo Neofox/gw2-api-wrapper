@@ -1,10 +1,13 @@
 <?php
 
 use GuildWars2\Endpoints;
+use GuildWars2\Wrapper;
 
 require 'vendor/autoload.php';
 
-$wrapper = new \guildwars2\Wrapper(Endpoints::WVW_OBJECTIVES);
-$result = $wrapper->getResponse(getenv('PARAMETER'));
+$wrapper = (new Wrapper())->setDebug(true);
+$wrapper->setEndpoint(Endpoints::QUAGGANS);
+
+$result = $wrapper->callApi(getenv('PARAMETER'));
 
 r($result);
