@@ -25,7 +25,7 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
 
     protected $version = 'v2';
 
-    protected $log = true;
+    protected $log = false;
 
     protected $logger;
 
