@@ -14,7 +14,8 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "zendframework/zend-log": "^2.8"
     },
     "require-dev": {
         "digitalnature/php-ref": "^1.2"

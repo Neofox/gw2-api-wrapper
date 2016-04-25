@@ -11,6 +11,8 @@ namespace GuildWars2;
 
 use GuzzleHttp\Client;
 use WrapperInterface;
+use Zend\Log\Logger;
+use Zend\Log\Writer\Stream;
 
 abstract class AbstractGw2Wrapper implements WrapperInterface
 {
@@ -23,12 +25,21 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
 
     protected $version = 'v2';
 
+    protected $log = true;
+
+    protected $logger;
+
     /**
      * Gw2Wrapper constructor.
      *
      */
     public function __construct()
     {
+        if($this->log){
+            $this->logger = new Logger();
+            $writer = new Stream('log/api_call.log');
+            $this->logger->addWriter($writer);
+        }
         $this->client = new Client(['base_uri' => $this->getApiBase(), 'http_errors' => false]);
     }
 

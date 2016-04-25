@@ -1,0 +1,16 @@
+2016-04-25T23:19:39+02:00 INFO (6): Call to https://api.guildwars2.com/v2/quaggans
+2016-04-25T23:19:39+02:00 INFO (6): array (
+  'query' => 
+  array (
+  ),
+  'debug' => true,
+)
+2016-04-25T23:20:59+02:00 INFO (6): Call to https://api.guildwars2.com/v2/quaggans/scifi
+2016-04-25T23:20:59+02:00 INFO (6): array (
+  'query' => 
+  array (
+  ),
+  'debug' => true,
+)
+2016-04-25T23:21:48+02:00 INFO (6): Call to https://api.guildwars2.com/v2/quaggans/scifi
+2016-04-25T23:21:48+02:00 INFO (6): {"query":[],"debug":true}

@@ -8,6 +8,8 @@
 
 namespace GuildWars2;
 
+use Zend\Log\Logger;
+
 /**
  * Class Wrapper
  * @package guildwars2
@@ -52,11 +54,19 @@ class Wrapper extends AbstractGw2Wrapper
         if($this->getDebug()){
             $options = array_merge($options, ['debug' => true]);
         }
+
+        if($this->log){
+            $this->logger->log(Logger::INFO, 'Call to ' . $this->apiBase . $this->getVersion() . $this->endpoint . $parameter);
+            $this->logger->log(Logger::INFO, json_encode($options));
+        }
+
         $response = $this->client->get($this->getVersion() . $this->endpoint . $parameter, $options);
         $result = $response->getBody()->getContents();
 
         if ($response->getStatusCode() != 200) {
             $result = json_encode(['status' => $response->getStatusCode(), 'error' => json_decode($response->getBody())->text]);
+            if($this->log)
+                $this->logger->log(Logger::ALERT, 'An error occured : status' . $response->getStatusCode() . 'message' . json_decode($response->getBody())->text);
         }
 
         return \GuzzleHttp\json_decode($result);
