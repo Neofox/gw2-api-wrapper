@@ -5,7 +5,7 @@ use GuildWars2\Wrapper;
 
 require 'vendor/autoload.php';
 
-$wrapper = (new Wrapper())->setDebug(true);
+$wrapper = (new Wrapper())->setDebug(true)->setLog(false);
 $wrapper->setEndpoint(Endpoints::QUAGGANS);
 
 $result = $wrapper->callApi(getenv('PARAMETER'));

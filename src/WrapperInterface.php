@@ -8,4 +8,5 @@
  */
 interface WrapperInterface
 {
+    public function callApi($params, $query);
 }

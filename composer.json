@@ -1,5 +1,5 @@
 {
-    "name": "neofox/neo-gw2api-wrapper",
+    "name": "neofox/gw2-api-wrapper",
     "description": "Simple Guild Wars 2 API wrapper",
     "license": "MIT",
     "autoload": {
