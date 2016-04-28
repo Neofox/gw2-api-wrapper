@@ -13,16 +13,31 @@ use GuildWars2\Exception\Gw2Exception;
 use GuildWars2\Wrapper\Endpoints;
 use GuildWars2\Wrapper\Wrapper;
 
+/**
+ * Class PvPWrapper
+ * @package GuildWars2\WrappedClass
+ */
 class PvPWrapper extends Wrapper
 {
 
-    public function __construct($debug = false, $log = false)
+    /**
+     * PvPWrapper constructor.
+     *
+     * @param bool $debug
+     * @param bool $log
+     */
+    public function __construct(bool $debug = false, bool $log = false)
     {
         parent::__construct();
         $this->log = $log;
         $this->debug = $debug;
     }
 
+    /**
+     * @param string $apiKey
+     *
+     * @return array|\stdClass
+     */
     public function getPvPGames(string $apiKey)
     {
         $this->setApiKey($apiKey);
@@ -36,7 +51,7 @@ class PvPWrapper extends Wrapper
      * @param array  $id
      * Must be ['id' => id] or ['ids' => id]
      *
-     * @return mixed
+     * @return array|\stdClass
      */
     public function getPvPGameInfo(string $apiKey, array $id)
     {
@@ -47,7 +62,13 @@ class PvPWrapper extends Wrapper
     }
 
 
-    public function getSeasons($lang = null)
+    /**
+     * @param string|null $lang
+     *
+     * @return array|\stdClass
+     * @throws Gw2Exception
+     */
+    public function getSeasons(string $lang = null)
     {
         $option = $this->validateLanguage($lang);
         $this->setEndpoint(Endpoints::PVP_SEASONS);
@@ -58,21 +79,25 @@ class PvPWrapper extends Wrapper
     /**
      * @param array       $id
      * Must be ['world' => id] or ['id' => id] or [ids = 'ids']
-     *
      * @param string|null $lang
      *
-     * @return mixed
+     * @return array|\stdClass
      * @throws Gw2Exception
      */
     public function getSeasonInfo(array $id, string $lang = null)
     {
-        $option = array_merge($id , $this->validateLanguage($lang));
+        $option = array_merge($id, $this->validateLanguage($lang));
         $this->setEndpoint(Endpoints::PVP_SEASONS);
 
         return $this->callApi('', $option);
     }
 
 
+    /**
+     * @param string $apiKey
+     *
+     * @return array|\stdClass
+     */
     public function getPvPStats(string $apiKey)
     {
         $this->setApiKey($apiKey);

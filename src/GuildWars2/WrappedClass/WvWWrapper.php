@@ -13,22 +13,29 @@ use GuildWars2\Exception\Gw2Exception;
 use GuildWars2\Wrapper\Endpoints;
 use GuildWars2\Wrapper\Wrapper;
 
+/**
+ * Class WvWWrapper
+ * @package GuildWars2\WrappedClass
+ */
 class WvWWrapper extends Wrapper
 {
-    
+
     /**
      * WvWWrapper constructor.
      *
      * @param bool $debug
      * @param bool $log
      */
-    public function __construct($debug = false, $log = false)
+    public function __construct(bool $debug = false, bool $log = false)
     {
         parent::__construct();
         $this->log = $log;
         $this->debug = $debug;
     }
 
+    /**
+     * @return array|\stdClass
+     */
     public function getMatches()
     {
         $this->setEndpoint(Endpoints::WVW_MATCHES);
@@ -40,7 +47,7 @@ class WvWWrapper extends Wrapper
      * @param array $id
      * Must be ['world' => id] or ['id' => id] or [ids = 'ids']
      *
-     * @return mixed
+     * @return array|\stdClass
      */
     public function getMatcheInfo(array $id)
     {
@@ -49,7 +56,13 @@ class WvWWrapper extends Wrapper
         return $this->callApi('', $id);
     }
 
-    public function getObjectives($lang = null)
+    /**
+     * @param string|null $lang
+     *
+     * @return array|\stdClass
+     * @throws Gw2Exception
+     */
+    public function getObjectives(string $lang = null)
     {
         $option = $this->validateLanguage($lang);
         $this->setEndpoint(Endpoints::WVW_OBJECTIVES);
@@ -60,15 +73,14 @@ class WvWWrapper extends Wrapper
     /**
      * @param array       $id
      * Must be ['world' => id] or ['id' => id] or [ids = 'ids']
-     *
      * @param string|null $lang
      *
-     * @return mixed
+     * @return array|\stdClass
      * @throws Gw2Exception
      */
     public function getObjectiveInfo(array $id, string $lang = null)
     {
-        $option = array_merge($id , $this->validateLanguage($lang));
+        $option = array_merge($id, $this->validateLanguage($lang));
         $this->setEndpoint(Endpoints::WVW_OBJECTIVES);
 
         return $this->callApi('', $option);

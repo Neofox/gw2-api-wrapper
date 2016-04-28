@@ -14,6 +14,10 @@ use GuildWars2\Exception\Gw2Exception;
 use Zend\Log\Logger;
 use Zend\Log\Writer\Stream;
 
+/**
+ * Class AbstractGw2Wrapper
+ * @package GuildWars2\Wrapper
+ */
 abstract class AbstractGw2Wrapper implements WrapperInterface
 {
     /**
@@ -49,6 +53,11 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
     /**
      * @var string
      */
+    protected $logFile = 'log/api_call.log';
+
+    /**
+     * @var string
+     */
     protected $endpoint;
 
     /**
@@ -63,27 +72,27 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
 
 
     /**
-     * Gw2Wrapper constructor.
-     *
+     * AbstractGw2Wrapper constructor.
      */
     public function __construct()
     {
-//        if ($this->log) {
         $this->createLogger();
-//        }
 
         // Http errors are set to false because we handle it in an other way
         $this->client = new Client(['base_uri' => $this->getApiBase(), 'http_errors' => false]);
     }
 
-    protected function createLogger($filename = 'log/api_call.log')
+    /**
+     *
+     */
+    protected function createLogger()
     {
-        $dirname = dirname($filename);
+        $dirname = dirname($this->logFile);
         if (!is_dir($dirname)) {
             mkdir($dirname, 0755, true);
         }
         $this->logger = new Logger();
-        $this->logger->addWriter(new Stream($filename));
+        $this->logger->addWriter(new Stream($this->logFile));
     }
 
     /**
@@ -95,7 +104,7 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
     }
 
     /**
-     * @param string $apiBase
+     * @param $apiBase
      *
      * @return $this
      */
@@ -115,7 +124,7 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
     }
 
     /**
-     * @param string $version
+     * @param $version
      *
      * @return $this
      */
@@ -149,7 +158,7 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
     /**
      * @return bool
      */
-    public function isDebug() : bool
+    public function isDebug()
     {
         return $this->debug;
     }
@@ -167,7 +176,7 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isLog()
     {
@@ -175,7 +184,7 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
     }
 
     /**
-     * @param boolean $log
+     * @param $log
      *
      * @return $this
      */
@@ -186,7 +195,13 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
         return $this;
     }
 
-    public function validateLanguage($lang)
+    /**
+     * @param string $lang
+     *
+     * @return array
+     * @throws Gw2Exception
+     */
+    public function validateLanguage(string $lang)
     {
         $options = [];
         if (!empty($lang)) {
@@ -218,7 +233,7 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
     /**
      * @return string
      */
-    public function getEndpoint() : string
+    public function getEndpoint()
     {
         return $this->endpoint;
     }

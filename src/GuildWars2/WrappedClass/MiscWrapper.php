@@ -13,13 +13,20 @@ use GuildWars2\Exception\Gw2Exception;
 use GuildWars2\Wrapper\Endpoints;
 use GuildWars2\Wrapper\Wrapper;
 
+/**
+ * Class MiscWrapper
+ * @package GuildWars2\WrappedClass
+ */
 class MiscWrapper extends Wrapper
 {
+
     /**
+     * MiscWrapper constructor.
+     *
      * @param bool $debug
      * @param bool $log
      */
-    public function __construct($debug = false, $log = false)
+    public function __construct(bool $debug = false, bool $log = false)
     {
         parent::__construct();
         $this->log = $log;
@@ -27,13 +34,22 @@ class MiscWrapper extends Wrapper
     }
 
 
-    public function getQuagganInfo(string $id)
+    /**
+     * @param array $id
+     * Must be ['id' => id] or [ids = 'ids']
+     *
+     * @return array|\stdClass
+     */
+    public function getQuagganInfo(array $id)
     {
         $this->setEndpoint(Endpoints::QUAGGANS);
 
-        return $this->callApi($id);
+        return $this->callApi('', $id);
     }
 
+    /**
+     * @return array|\stdClass
+     */
     public function getQuaggans()
     {
         $this->setEndpoint(Endpoints::QUAGGANS);
@@ -41,6 +57,9 @@ class MiscWrapper extends Wrapper
         return $this->callApi();
     }
 
+    /**
+     * @return array|\stdClass
+     */
     public function getBuild()
     {
         $this->setEndpoint(Endpoints::BUILD);
@@ -48,6 +67,12 @@ class MiscWrapper extends Wrapper
         return $this->callApi();
     }
 
+    /**
+     * @param string|null $lang
+     *
+     * @return array|\stdClass
+     * @throws Gw2Exception
+     */
     public function getColors(string $lang = null)
     {
         $option = $this->validateLanguage($lang);
@@ -60,10 +85,9 @@ class MiscWrapper extends Wrapper
     /**
      * @param array       $id
      * Must be ['id' => id] or [ids = 'ids']
-     *
      * @param string|null $lang
      *
-     * @return mixed
+     * @return array|\stdClass
      * @throws Gw2Exception
      */
     public function getColorInfo(array $id, string $lang = null)
@@ -74,6 +98,12 @@ class MiscWrapper extends Wrapper
         return $this->callApi('', $option);
     }
 
+    /**
+     * @param string|null $lang
+     *
+     * @return array|\stdClass
+     * @throws Gw2Exception
+     */
     public function getCurrencies(string $lang = null)
     {
         $option = $this->validateLanguage($lang);
@@ -86,10 +116,9 @@ class MiscWrapper extends Wrapper
     /**
      * @param array       $id
      * Must be ['id' => id] or [ids = 'ids']
-     *
      * @param string|null $lang
      *
-     * @return mixed
+     * @return array|\stdClass
      * @throws Gw2Exception
      */
     public function getCurrencyInfo(array $id, string $lang = null)
@@ -100,6 +129,9 @@ class MiscWrapper extends Wrapper
         return $this->callApi('', $option);
     }
 
+    /**
+     * @return array|\stdClass
+     */
     public function getFiles()
     {
         $this->setEndpoint(Endpoints::FILES);
@@ -107,13 +139,11 @@ class MiscWrapper extends Wrapper
         return $this->callApi();
     }
 
-
     /**
      * @param array $id
      * Must be ['id' => id] or [ids = 'ids']
      *
-     * @return mixed
-     * @throws Gw2Exception
+     * @return array|\stdClass
      */
     public function getFileInfo(array $id)
     {
@@ -122,6 +152,9 @@ class MiscWrapper extends Wrapper
         return $this->callApi('', $id);
     }
 
+    /**
+     * @return array|\stdClass
+     */
     public function getMinis()
     {
         $this->setEndpoint(Endpoints::MINIS);
@@ -129,13 +162,11 @@ class MiscWrapper extends Wrapper
         return $this->callApi();
     }
 
-
     /**
      * @param array $id
      * Must be ['id' => id] or [ids = 'ids']
      *
-     * @return mixed
-     * @throws Gw2Exception
+     * @return array|\stdClass
      */
     public function getMininfo(array $id)
     {
@@ -144,6 +175,11 @@ class MiscWrapper extends Wrapper
         return $this->callApi('', $id);
     }
 
+    /**
+     * @param string $apiKey
+     *
+     * @return array|\stdClass
+     */
     public function getTokenInfo(string $apiKey)
     {
         $this->setApiKey($apiKey);

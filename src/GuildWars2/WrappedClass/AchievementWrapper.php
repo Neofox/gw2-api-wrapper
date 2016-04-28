@@ -12,9 +12,19 @@ namespace GuildWars2\WrappedClass;
 use GuildWars2\Wrapper\Endpoints;
 use GuildWars2\Wrapper\Wrapper;
 
+/**
+ * Class AchievementWrapper
+ * @package GuildWars2\WrappedClass
+ */
 class AchievementWrapper extends Wrapper
 {
-    public function __construct($debug = false, $log = false)
+    /**
+     * AchievementWrapper constructor.
+     *
+     * @param bool $debug
+     * @param bool $log
+     */
+    public function __construct(bool $debug = false, bool $log = false)
     {
         parent::__construct();
         $this->log = $log;
@@ -22,7 +32,13 @@ class AchievementWrapper extends Wrapper
     }
 
 
-    public function getAchievements($lang = null)
+    /**
+     * @param string|null $lang
+     *
+     * @return array|\stdClass
+     * @throws \GuildWars2\Exception\Gw2Exception
+     */
+    public function getAchievements(string $lang = null)
     {
         $option = $this->validateLanguage($lang);
         $this->setEndpoint(Endpoints::ACHIEVEMENTS);
@@ -40,13 +56,19 @@ class AchievementWrapper extends Wrapper
      */
     public function getAchievementInfo(array $id, string $lang = null)
     {
-        $option = array_merge($id , $this->validateLanguage($lang));
+        $option = array_merge($id, $this->validateLanguage($lang));
         $this->setEndpoint(Endpoints::ACHIEVEMENTS);
 
         return $this->callApi('', $option);
     }
 
-    public function getAchievementsCategories($lang = null)
+    /**
+     * @param string|null $lang
+     *
+     * @return array|\stdClass
+     * @throws \GuildWars2\Exception\Gw2Exception
+     */
+    public function getAchievementsCategories(string $lang = null)
     {
         $option = $this->validateLanguage($lang);
         $this->setEndpoint(Endpoints::ACHIEVEMENTS_CATEGORIES);
@@ -60,17 +82,20 @@ class AchievementWrapper extends Wrapper
      * must be ['id' => id] or ['ids' => id]
      * @param string|null $lang
      *
-     * @return mixed
+     * @return array|\stdClass
      * @throws \GuildWars2\Exception\Gw2Exception
      */
     public function getAchievementsCategoryInfo(array $id, string $lang = null)
     {
-        $option = array_merge($id , $this->validateLanguage($lang));
+        $option = array_merge($id, $this->validateLanguage($lang));
         $this->setEndpoint(Endpoints::ACHIEVEMENTS_CATEGORIES);
 
         return $this->callApi('', $option);
     }
 
+    /**
+     * @return array|\stdClass
+     */
     public function getAchievementsDaily()
     {
         $this->setEndpoint(Endpoints::ACHIEVEMENTS_DAILY);
@@ -78,6 +103,9 @@ class AchievementWrapper extends Wrapper
         return $this->callApi();
     }
 
+    /**
+     * @return array|\stdClass
+     */
     public function getAchievementsDailyTomorrow()
     {
         $this->setEndpoint(Endpoints::ACHIEVEMENTS_DAILY_TOMORROW);
@@ -86,7 +114,13 @@ class AchievementWrapper extends Wrapper
     }
 
 
-    public function getAchievementsGroups($lang = null)
+    /**
+     * @param string|null $lang
+     *
+     * @return array|\stdClass
+     * @throws \GuildWars2\Exception\Gw2Exception
+     */
+    public function getAchievementsGroups(string $lang = null)
     {
         $option = $this->validateLanguage($lang);
         $this->setEndpoint(Endpoints::ACHIEVEMENTS_GROUPS);
@@ -104,7 +138,7 @@ class AchievementWrapper extends Wrapper
      */
     public function getAchievementsGroupInfo(array $id, string $lang = null)
     {
-        $option = array_merge($id , $this->validateLanguage($lang));
+        $option = array_merge($id, $this->validateLanguage($lang));
         $this->setEndpoint(Endpoints::ACHIEVEMENTS_GROUPS);
 
         return $this->callApi('', $option);

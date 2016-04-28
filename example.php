@@ -15,3 +15,5 @@ $result = $wrapper->callApi('404');
 // EASIER WAY TO CALL THE API
 $wrappedCall = new MiscWrapper(false, true);
 $wrappedResult = $wrappedCall->getQuagganInfo(['id' => '404']);
+
+var_dump($wrappedResult);

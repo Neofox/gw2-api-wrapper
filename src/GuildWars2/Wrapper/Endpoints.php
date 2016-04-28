@@ -7,6 +7,10 @@
  */
 namespace GuildWars2\Wrapper;
 
+/**
+ * Class Endpoints
+ * @package GuildWars2\Wrapper
+ */
 class Endpoints
 {
     // WvW
