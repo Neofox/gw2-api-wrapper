@@ -6,11 +6,11 @@
  * Time: 20:37
  */
 
-namespace GuildWars2;
+namespace GuildWars2\Wrapper;
 
 
 use GuzzleHttp\Client;
-use WrapperInterface;
+use GuildWars2\Exception\Gw2Exception;
 use Zend\Log\Logger;
 use Zend\Log\Writer\Stream;
 
@@ -30,6 +30,11 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
      * @var string
      */
     protected $version = 'v2';
+
+    /**
+     * @var array
+     */
+    protected $availableLang = ['en', 'es', 'fr', 'de', 'ko', 'zh'];
 
     /**
      * @var bool
@@ -63,9 +68,9 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
      */
     public function __construct()
     {
-        if ($this->log) {
-            $this->createLogger();
-        }
+//        if ($this->log) {
+        $this->createLogger();
+//        }
 
         // Http errors are set to false because we handle it in an other way
         $this->client = new Client(['base_uri' => $this->getApiBase(), 'http_errors' => false]);
@@ -181,18 +186,32 @@ abstract class AbstractGw2Wrapper implements WrapperInterface
         return $this;
     }
 
+    public function validateLanguage($lang)
+    {
+        $options = [];
+        if (!empty($lang)) {
+            if (in_array(strtolower($lang), $this->availableLang)) {
+                $options = ['lang' => $lang];
+            } else {
+                throw new Gw2Exception(sprintf('The language "%s" is not a valide language.', $lang));
+            }
+        }
+
+        return $options;
+    }
+
     /**
      * @param $parameter
      *
-     * @throws \Gw2Exception
+     * @throws Gw2Exception
      */
     protected function checkParameters($parameter)
     {
         if (empty($this->getEndpoint())) {
-            throw new \Gw2Exception('An endpoint is required ');
+            throw new Gw2Exception('An endpoint is required ');
         }
         if (!empty($parameter) && (!is_int($parameter) && !is_string($parameter))) {
-            throw new \Gw2Exception(sprintf('the parameter %s must be compatible', $parameter));
+            throw new Gw2Exception(sprintf('the parameter "%s" must be compatible', $parameter));
         }
     }
 

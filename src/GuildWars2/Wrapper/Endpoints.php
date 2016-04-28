@@ -5,7 +5,7 @@
  * Date: 21/04/2016
  * Time: 22:41
  */
-namespace GuildWars2;
+namespace GuildWars2\Wrapper;
 
 class Endpoints
 {

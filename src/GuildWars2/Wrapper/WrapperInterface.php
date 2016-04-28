@@ -1,5 +1,7 @@
 <?php
 
+namespace GuildWars2\Wrapper;
+
 /**
  * Created by PhpStorm.
  * User: Neofox
@@ -9,4 +11,6 @@
 interface WrapperInterface
 {
     public function callApi($params, $query);
+
+    public function validateLanguage($lang);
 }

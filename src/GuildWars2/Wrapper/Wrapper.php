@@ -6,8 +6,9 @@
  * Time: 20:42
  */
 
-namespace GuildWars2;
+namespace GuildWars2\Wrapper;
 
+use GuildWars2\Exception\Gw2Exception;
 use Zend\Log\Logger;
 
 /**
@@ -23,7 +24,7 @@ class Wrapper extends AbstractGw2Wrapper
      *
      * @return mixed
      * @throws \Exception
-     * @throws \Gw2Exception
+     * @throws Gw2Exception
      */
     public function callApi($parameter = null, $queryOpt = [])
     {
@@ -51,14 +52,15 @@ class Wrapper extends AbstractGw2Wrapper
         $response = $this->client->get($this->getVersion() . $this->endpoint . $parameter, $options);
         $result = $response->getBody()->getContents();
 
-        if ($response->getStatusCode() != 200) {
+        if (!in_array($response->getStatusCode(), ['200', '201', '202', '203', '204', '205', '206', '207', '208', '226'])) {
+            $textError = !empty(json_decode($response->getBody())) ? json_decode($response->getBody())->text : '';
             $result = json_encode([
                 'status' => $response->getStatusCode(),
-                'error'  => json_decode($response->getBody())->text,
+                'error'  => $textError
             ]);
             if ($this->log) {
                 $this->logger->log(Logger::ALERT,
-                    'An error occured : status' . $response->getStatusCode() . 'message' . json_decode($response->getBody())->text);
+                    'An error occured : status ' . $response->getStatusCode() . '. message : ' . $textError);
             }
         }
 
